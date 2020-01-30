@@ -1,4 +1,4 @@
-# go-echo-api-starter
+# go-api-starter
 
 ## Usage
 
