@@ -16,7 +16,7 @@ type templateModel struct {
 	ProjectName string
 }
 
-const templateRepoURL = "https://github.com/lon9/go-echo-api-starter-template.git"
+const templateRepoURL = "https://github.com/lon9/go-%s-api-starter-template.git"
 
 func isGitDir(p, tmpDirPath string) bool {
 	tmp := strings.ReplaceAll(p, tmpDirPath, "")
@@ -27,10 +27,12 @@ func main() {
 	var (
 		projectPath string
 		outputDir   string
+		framework   string
 	)
 
 	flag.StringVar(&projectPath, "p", "github.com/lon9/awesomeproject", "path of your awesome project from GOPATH")
 	flag.StringVar(&outputDir, "o", "", "path you want to set up project. Default is base of p option")
+	flag.StringVar(&framework, "f", "echo", "framework you use (e.g. echo or gin)")
 	flag.Parse()
 
 	model := &templateModel{
@@ -50,7 +52,7 @@ func main() {
 		panic(err)
 	}
 	defer os.RemoveAll(tmpDirPath)
-	if err := exec.Command("git", "clone", templateRepoURL, tmpDirPath).Run(); err != nil {
+	if err := exec.Command("git", "clone", fmt.Sprintf(templateRepoURL, framework), tmpDirPath).Run(); err != nil {
 		panic(err)
 	}
 
