@@ -18,11 +18,6 @@ type templateModel struct {
 
 const templateRepoURL = "https://github.com/lon9/go-%s-api-starter-template.git"
 
-func isGitDir(p, tmpDirPath string) bool {
-	tmp := strings.ReplaceAll(p, tmpDirPath, "")
-	return strings.Split(tmp, "/")[1] == ".git"
-}
-
 func main() {
 	var (
 		projectPath string
@@ -64,7 +59,7 @@ func main() {
 		if info.IsDir() {
 			return nil
 		}
-		if isGitDir(p, tmpDirPath) {
+		if strings.Contains(p, ".git") {
 			return nil
 		}
 		outputPath := filepath.Join(outputDir, strings.ReplaceAll(p, tmpDirPath, ""))
